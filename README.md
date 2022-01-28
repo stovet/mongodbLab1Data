@@ -1,3 +1,5 @@
+PART 2 DATA MANIPULATION
+
 db.people.insertOne({first_name: "Steven", last_name: "Top", email: "stop@gmail", gender: "Male", state: "MI", children: []});
 db.people.insertOne({first_name: "Steven", last_name: "Top", email: "stop@gmail", gender: "Male", state: "MI", children: [{name: "Beth", age: 5,}]});
 db.people.updateOne({first_name: "Clarence"}, {$set: {state: "South Dakota"}});
@@ -13,3 +15,31 @@ EXTENDED CHALLENGES
 db.people.updateOne({_id: ObjectId("61f369b28d310004a8b7c114")}, {$push: {children: {name: "Melanie", age: 0}}});
 db.people.updateOne({_id: ObjectId("61f369b28d310004a8b7c10d")}, {$set: {"children.3.name": "Cat"}, $inc: {"children.3.age": 1}});
 db.submissions.find({$expr:{$gt:["$downvotes", "$upvotes"]}});
+
+PART 1 QUERY
+
+db.people.find();
+db.people.find().count();
+db.people.find({state: "Arizona"});
+db.people.find({state: 'Arizona', gender: "Male"});
+db.people.find({ $or: [ {state: "Arizona"}, {state: "New Mexico"} ] });
+db.people.find({age: {$lt: 40}});
+db.people.find({gender: 'Female', state: 'Florida', age: {$lte: 45, $gte: 40}});
+db.people.find({first_name: /^H/});
+db.people.find({state: "Michigan"}).sort({first_name: 1});
+db.people.find({ $or: [{state: "Virginia"},{ first_name: "Virginia"}]});
+
+
+db.people.find(
+{
+age: {$lt: 30}},
+{first_name: 1,
+last_name: 1});
+
+db.people.find({state: 'Montana'}, {age: 0});
+db.people.find({email: /.edu$/},{email:1});
+Extended Challenges
+db.people.find({'children.age': {$lt: 4}}).count();
+db.people.find({children: []});
+db.people.find({children: {$ne: [] } });
+
